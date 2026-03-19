@@ -33,12 +33,15 @@ if uploaded_file is not None:
     st.write("Analiza zdjęcia galaktyki...")
 
     #4 przygotowanie zdjecia pod model
-    img = Image.resize((150, 150))
+    image = image.convert('RGB')
+    
+    # skalowanie do 150x150
+    img = image.resize((150, 150))
+    
     img_array = tf.keras.preprocessing.image.img_to_array(img)
     img_array = np.expand_dims(img_array, axis=0)
-    img_array = img_array / 255.0 #normalizacja
-
-    #predykcja
+    img_array = img_array / 255.0  # Normalizacja
+    
 
     wynik = model.predict(img_array)
 

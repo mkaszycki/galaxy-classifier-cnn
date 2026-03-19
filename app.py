@@ -27,21 +27,19 @@ uploaded_file = st.file_uploader("Wybierz zdjęcie galaktyki (JPG/PNG)...", type
 
 if uploaded_file is not None:
     #wyswietlanie wgranego zdjecia na ekranie
-    Image = Image.open(uploaded_file)
+    image = Image.open(uploaded_file)
     st.image(Image, caption='Twoja galaktyka do analizy', use_column_width=True)
 
     st.write("Analiza zdjęcia galaktyki...")
 
     #4 przygotowanie zdjecia pod model
-    image = image.convert('RGB')
-    
-    # skalowanie do 150x150
+    img = image.convert('RGB')
     img = image.resize((150, 150))
-    
     img_array = tf.keras.preprocessing.image.img_to_array(img)
     img_array = np.expand_dims(img_array, axis=0)
-    img_array = img_array / 255.0  # Normalizacja
-    
+    img_array = img_array / 255.0 #normalizacja
+
+    #predykcja
 
     wynik = model.predict(img_array)
 
